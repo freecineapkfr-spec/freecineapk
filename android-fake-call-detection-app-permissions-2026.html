@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Android's New Fake Call Detection – How It Affects App Permissions (2026)</title>
+<meta name="description" content="Google's new Fake Call Detection is rolling out to Android phones in 2026. Here's how it works, which devices get it, and what it means for your app permissions.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080b12;
+    --surface: #0f1520;
+    --card: #141c2e;
+    --card-hover: #1a2438;
+    --accent: #f59e0b;
+    --accent2: #fcd34d;
+    --teal: #2dd4bf;
+    --text: #f5f0e8;
+    --muted: #7a7a8a;
+    --border: #1e2840;
+    --radius: 16px;
+  }
+
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 16px; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(8,11,18,0.9); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border); padding: 16px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--accent2); text-decoration: none; }
+  .nav-tag { background: var(--accent); color: #1a0a00; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  .hero { max-width: 860px; margin: 0 auto; padding: 64px 24px 40px; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(245,158,11,0.1); border: 1px solid var(--accent);
+    color: var(--accent2); font-size: 12px; font-weight: 600;
+    padding: 6px 14px; border-radius: 20px; letter-spacing: 0.06em;
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.3} }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 4.5vw, 44px);
+    font-weight: 800; line-height: 1.15; margin-bottom: 20px;
+    background: linear-gradient(135deg, #f5f0e8 0%, var(--accent2) 60%, var(--teal) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .meta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; color: var(--muted); font-size: 13px; margin-bottom: 36px; }
+  .meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+
+  .hero-img { width: 100%; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); margin-bottom: 48px; position: relative; }
+  .hero-img img { width: 100%; height: 400px; object-fit: cover; display: block; }
+  .hero-img-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); padding: 24px 20px 16px; color: rgba(255,255,255,0.6); font-size: 12px; }
+
+  .content { max-width: 860px; margin: 0 auto; padding: 0 24px 80px; }
+  p { color: #b8b0a0; margin-bottom: 24px; font-size: 16.5px; }
+
+  h2 { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: var(--text); margin: 48px 0 16px; padding-left: 16px; border-left: 3px solid var(--accent); }
+  h3 { font-size: 18px; font-weight: 700; color: var(--text); margin: 28px 0 10px; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 32px 0; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: all 0.2s; }
+  .card:hover { background: var(--card-hover); border-color: var(--accent); transform: translateY(-2px); }
+  .card-icon { font-size: 28px; margin-bottom: 12px; }
+  .card-title { font-weight: 700; font-size: 15px; color: var(--text); margin-bottom: 8px; }
+  .card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin: 0; }
+
+  /* DEVICE LIST */
+  .device-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 24px 0; }
+  .device-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 12px; }
+  .device-badge { font-size: 20px; }
+  .device-name { font-size: 14px; font-weight: 700; color: var(--text); }
+  .device-status { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .status-live { color: #34d399; font-weight: 600; }
+  .status-soon { color: var(--accent); font-weight: 600; }
+
+  .inline-img { width: 100%; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); margin: 32px 0; }
+  .inline-img img { width: 100%; height: 300px; object-fit: cover; display: block; }
+  .inline-img figcaption { background: var(--card); padding: 12px 18px; font-size: 12px; color: var(--muted); }
+
+  /* PERMISSION TABLE */
+  .perm-table { width: 100%; border-collapse: collapse; margin: 24px 0; border-radius: var(--radius); overflow: hidden; }
+  .perm-table th { background: var(--accent); color: #1a0a00; padding: 14px 18px; text-align: left; font-size: 13px; font-weight: 700; }
+  .perm-table td { padding: 13px 18px; font-size: 14px; border-bottom: 1px solid var(--border); }
+  .perm-table tr:nth-child(odd) td { background: var(--card); }
+  .perm-table tr:nth-child(even) td { background: var(--surface); }
+  .perm-table td:first-child { color: var(--muted); font-weight: 600; }
+  .perm-table td:last-child { color: var(--text); }
+
+  .highlight { background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(45,212,191,0.06)); border: 1px solid rgba(245,158,11,0.4); border-radius: var(--radius); padding: 28px; margin: 32px 0; }
+  .highlight-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); margin-bottom: 10px; }
+  .highlight p { color: #d0c8b8; margin: 0; font-size: 15px; }
+
+  .warning { background: rgba(248,113,113,0.06); border: 1px solid rgba(248,113,113,0.3); border-radius: var(--radius); padding: 22px 28px; margin: 32px 0; }
+  .warning-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #f87171; margin-bottom: 10px; }
+  .warning p { color: #c8b0b0; margin: 0; font-size: 14.5px; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 32px 0; }
+  .tag { background: var(--card); border: 1px solid var(--border); color: var(--muted); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px; }
+
+  footer { background: var(--surface); border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; color: var(--muted); font-size: 13px; }
+  footer a { color: var(--accent2); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="http://126.dontkillmyapp.com/" class="nav-logo">AndroidHub</a>
+  <span class="nav-tag">Security Update</span>
+</nav>
+
+<div class="hero">
+  <div class="eyebrow"><span></span> Rolling Out Now</div>
+  <h1>Android's New Fake Call Detection – How It Affects Your App Permissions</h1>
+  <div class="meta">
+    <span>AndroidHub Staff</span>
+    <span class="meta-dot"></span>
+    <span>June 29, 2026</span>
+    <span class="meta-dot"></span>
+    <span>7 min read</span>
+    <span class="meta-dot"></span>
+    <span>Security · Android Features</span>
+  </div>
+  <div class="hero-img">
+    <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=900&auto=format&fit=crop" alt="Android phone security scam call detection">
+    <div class="hero-img-caption">Google's AI-powered fake call detection is already live on select devices — and it's changing how Android manages phone app permissions.</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <p>Your phone rings. The caller ID says it's your bank. Or your doctor. Or your best friend. But is it really? In 2026, AI voice cloning and number spoofing have made this question genuinely difficult to answer — until now. Google has launched one of the most significant phone security features in Android's history: Fake Call Detection, and it's rolling out across major Android brands right now.</p>
+
+  <p>But here's what no one is talking about: this new feature has meaningful implications for how background app permissions work on your device. If you rely on third-party calling apps, VoIP tools, or apps that use microphone access in the background, you need to understand what's changing — before a silent permission change breaks your setup.</p>
+
+  <h2>What Is Android Fake Call Detection?</h2>
+
+  <p>Fake Call Detection is an AI-powered system built directly into the Android phone dialer that works at the network and device level simultaneously. When you receive an incoming call, it cross-references the number against verified carrier data to confirm whether the call is genuinely originating from the device registered to that contact — not a spoofed signal pretending to be them.</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">📡</div>
+      <div class="card-title">Network-Level Verification</div>
+      <div class="card-desc">Works with carrier infrastructure to verify the true origin of an incoming call signal before your phone even rings.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧠</div>
+      <div class="card-title">On-Device AI Analysis</div>
+      <div class="card-desc">Gemini Nano on-device model analyzes call audio patterns in real-time, flagging robocall scripts and AI-generated voice signatures.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔒</div>
+      <div class="card-title">Private by Design</div>
+      <div class="card-desc">All analysis happens on-device using Private Compute Core. No call audio is sent to Google's servers.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <div class="card-title">Real-Time Warning</div>
+      <div class="card-desc">If a call fails verification, you see a banner warning before answering — not after the scammer has already spoken.</div>
+    </div>
+  </div>
+
+  <h2>Which Android Phones Have It Right Now</h2>
+
+  <div class="device-grid">
+    <div class="device-card"><div class="device-badge">📱</div><div><div class="device-name">Pixel 10 Series</div><div class="device-status status-live">Live Now</div></div></div>
+    <div class="device-card"><div class="device-badge">📱</div><div><div class="device-name">Samsung Galaxy S25</div><div class="device-status status-live">Live Now</div></div></div>
+    <div class="device-card"><div class="device-badge">📱</div><div><div class="device-name">Xiaomi 17T Pro</div><div class="device-status status-live">Live Now</div></div></div>
+    <div class="device-card"><div class="device-badge">📱</div><div><div class="device-name">OnePlus 15</div><div class="device-status status-live">Live Now</div></div></div>
+    <div class="device-card"><div class="device-badge">📱</div><div><div class="device-name">Honor Magic V6</div><div class="device-status status-live">Live Now</div></div></div>
+    <div class="device-card"><div class="device-badge">📱</div><div><div class="device-name">Motorola Razr Fold 2026</div><div class="device-status status-soon">Coming Soon</div></div></div>
+    <div class="device-card"><div class="device-badge">📱</div><div><div class="device-name">OPPO Find X8 Series</div><div class="device-status status-soon">Coming Soon</div></div></div>
+    <div class="device-card"><div class="device-badge">📱</div><div><div class="device-name">Honor Magic 8 Pro</div><div class="device-status status-soon">Coming Soon</div></div></div>
+  </div>
+
+  <figure class="inline-img">
+    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&auto=format&fit=crop" alt="Person looking at phone with security warning">
+    <figcaption>The fake call warning banner appears before you answer, giving you the choice to decline or proceed with awareness — not after you've already been tricked.</figcaption>
+  </figure>
+
+  <h2>How This Changes App Permissions — The Part Nobody Talks About</h2>
+
+  <p>Here's where it gets interesting for power Android users. Fake Call Detection operates by giving the default Android Phone dialer elevated microphone and background process access. To do this reliably, Google had to tighten the rules around which third-party apps can use similar background audio permissions — specifically, apps that previously used background microphone access in ways Google now considers overreaching.</p>
+
+  <p>In Android 17 (and partially in Android 16 via a patch), the following permission changes are now enforced:</p>
+
+  <table class="perm-table">
+    <tr><th>Permission Type</th><th>What Changed</th></tr>
+    <tr><td>Background Microphone</td><td>Third-party apps can no longer keep microphone active silently in background without a persistent notification indicator</td></tr>
+    <tr><td>Phone State Access</td><td>READ_PHONE_STATE permission now requires explicit user grant at runtime, not install-time</td></tr>
+    <tr><td>Call Log Access</td><td>Restricted to apps the user designates as their default dialer or assistant</td></tr>
+    <tr><td>VoIP Background Audio</td><td>Must use Android's new TelecomManager foreground service API — passive background audio no longer allowed</td></tr>
+    <tr><td>Contact Verification</td><td>Only system-level apps and explicitly granted companions can cross-reference contact IDs against call data</td></tr>
+  </table>
+
+  <div class="warning">
+    <div class="warning-label">⚠️ Check Your Apps</div>
+    <p>If you use third-party calling apps like Google Voice, WhatsApp Calls, Telegram calls, or business VoIP tools — check if they've updated to comply with Android 17's new TelecomManager API. Apps that haven't updated may see background call handling break after the Android 17 update reaches your device.</p>
+  </div>
+
+  <h2>Does Fake Call Detection Work on Third-Party Dialers?</h2>
+
+  <p>If you use a custom dialer app as your default — like Truecaller, Hiya, or your carrier's branded dialer — the situation is more nuanced. Fake Call Detection's network-level verification tier works regardless of your dialer choice, as it operates at the carrier and SIM level. However, the on-device AI audio analysis and the banner warning UI are only available through the default Google Phone app on supported devices.</p>
+
+  <p>Truecaller has confirmed it is integrating with Google's Fake Call Detection API through a partnership announced at Google I/O 2026. Hiya is expected to follow. If you use either of these, expect a major update that brings fake call warning capabilities within their own UI by Q3 2026.</p>
+
+  <h2>How to Enable Fake Call Detection on Your Phone</h2>
+
+  <div class="highlight">
+    <div class="highlight-label">📋 Setup Guide</div>
+    <p><strong>Google Pixel:</strong> Open the Phone app → Menu (three dots) → Settings → Spam and Call Screening → Turn on "Verified Calls" and "Call Verification." | <strong>Samsung:</strong> Settings → Phone → Security → Fake Call Detection → Enable. Available on Galaxy S25 and later with One UI 8 update. | <strong>OnePlus:</strong> Dialer app → Settings → Call Protection → AI Call Verification → On. | <strong>Xiaomi:</strong> MIUI Security app → Phone Protection → Fake Caller ID Detection → Enable.</p>
+  </div>
+
+  <h2>Privacy: Is Google Listening to My Calls?</h2>
+
+  <p>This is the most common concern, and Google has been transparent about the architecture. All audio analysis happens using the Gemini Nano model running entirely on-device inside Android's Private Compute Core — a sandboxed environment that has no network access. No audio data, no transcripts, and no voice prints are sent to Google's servers. The carrier-level network verification is a metadata-only check (whether call signal origin matches registered device) and does not involve audio content.</p>
+
+  <p>Google has also made the core security architecture of Fake Call Detection open source, and third-party security auditors have reviewed the system. For most users, the privacy trade-off is minimal to zero, with significant security benefits in return.</p>
+
+  <h2>The Bottom Line</h2>
+
+  <p>Android's Fake Call Detection is a genuine security leap that arrives at exactly the right time. AI voice cloning has made phone scams dramatically more convincing in 2025–2026, and a system-level response was overdue. For most users, enabling it is a straightforward win. For power users running third-party calling or VoIP apps, the permission changes require a quick audit of your installed apps to ensure continued smooth operation after the Android 17 update arrives.</p>
+
+  <div class="tags">
+    <span class="tag">Fake Call Detection</span>
+    <span class="tag">Android Security</span>
+    <span class="tag">App Permissions</span>
+    <span class="tag">Gemini Nano</span>
+    <span class="tag">Android 17</span>
+    <span class="tag">VoIP</span>
+    <span class="tag">Pixel 10</span>
+    <span class="tag">Samsung S25</span>
+  </div>
+
+</div>
+
+  <!-- RELATED ARTICLES -->
+  <div style="margin:56px 0 0;padding-top:40px;border-top:1px solid var(--border);">
+    <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;">More From AndroidHub</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
+      <a href="http://126.dontkillmyapp.com/" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;text-decoration:none;display:block;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">🏠 Home</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.4;">AndroidHub — Optimization Guides &amp; Rankings</div>
+      </a>
+      <a href="http://126.dontkillmyapp.com/samsung-galaxy-z-fold-8-launch-july-2026.html" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;text-decoration:none;display:block;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">📱 Samsung</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.4;">Galaxy Z Fold 8 Launch – Everything We Know</div>
+      </a>
+      <a href="http://126.dontkillmyapp.com/android-17-features-fix-notifications-background-apps.html" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;text-decoration:none;display:block;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">🤖 Android 17</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.4;">Android 17 Features That Fix Notifications &amp; Background Apps</div>
+      </a>
+      <a href="http://126.dontkillmyapp.com/android-fake-call-detection-app-permissions-2026.html" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;text-decoration:none;display:block;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">🔐 Security</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.4;">Android Fake Call Detection &amp; App Permissions</div>
+      </a>
+      <a href="http://126.dontkillmyapp.com/nothing-phone-4b-launch-background-apps-july-2026.html" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;text-decoration:none;display:block;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">⚡ Nothing</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.4;">Nothing Phone 4b – Background App Killing Test</div>
+      </a>
+      <a href="http://126.dontkillmyapp.com/googlebook-announced-android-app-optimization-2026.html" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;text-decoration:none;display:block;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">💻 Google</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.4;">Googlebook – What It Means for Android Optimization</div>
+      </a>
+    </div>
+  </div>
+
+
+</div>
+
+<footer>
+  <p>© 2026 <a href="http://126.dontkillmyapp.com/">AndroidHub</a> — Device-specific Android optimization, guides &amp; rankings.</p>
+</footer>
+
+</body>
+</html>

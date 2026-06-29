@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samsung Galaxy Z Fold 8 Launch – Everything We Know (July 2026)</title>
+<meta name="description" content="Samsung Galaxy Z Fold 8 is almost here. Here's every confirmed spec, leak, and launch detail you need to know before it drops this July 2026.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0d0f;
+    --surface: #16161a;
+    --card: #1e1e24;
+    --card-hover: #252530;
+    --accent: #6c63ff;
+    --accent2: #a78bfa;
+    --text: #f0f0f5;
+    --muted: #8888a0;
+    --border: #2a2a35;
+    --tag-bg: #1a1a2e;
+    --radius: 16px;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(13,13,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--accent2); text-decoration: none; }
+  .nav-tag { background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* HERO */
+  .hero {
+    max-width: 860px; margin: 0 auto; padding: 64px 24px 40px;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--tag-bg); border: 1px solid var(--accent);
+    color: var(--accent2); font-size: 12px; font-weight: 600;
+    padding: 6px 14px; border-radius: 20px; letter-spacing: 0.06em;
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #f0f0f5 0%, var(--accent2) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .meta {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    color: var(--muted); font-size: 13px; margin-bottom: 36px;
+  }
+  .meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+
+  /* HERO IMAGE */
+  .hero-img {
+    width: 100%; border-radius: var(--radius);
+    overflow: hidden; border: 1px solid var(--border);
+    margin-bottom: 48px; position: relative;
+  }
+  .hero-img img { width: 100%; height: 420px; object-fit: cover; display: block; }
+  .hero-img-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    padding: 24px 20px 16px;
+    color: rgba(255,255,255,0.7); font-size: 12px;
+  }
+
+  /* CONTENT */
+  .content { max-width: 860px; margin: 0 auto; padding: 0 24px 80px; }
+
+  p { color: #c0c0d0; margin-bottom: 24px; font-size: 16.5px; }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px; font-weight: 800;
+    color: var(--text); margin: 48px 0 16px;
+    padding-left: 16px;
+    border-left: 3px solid var(--accent);
+  }
+
+  h3 { font-size: 18px; font-weight: 700; color: var(--text); margin: 28px 0 10px; }
+
+  /* CARDS GRID */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 32px 0; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .card:hover { background: var(--card-hover); border-color: var(--accent); transform: translateY(-2px); }
+  .card-icon { font-size: 28px; margin-bottom: 12px; }
+  .card-title { font-weight: 700; font-size: 15px; color: var(--text); margin-bottom: 8px; }
+  .card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin: 0; }
+
+  /* SPEC TABLE */
+  .spec-table { width: 100%; border-collapse: collapse; margin: 24px 0 36px; border-radius: var(--radius); overflow: hidden; }
+  .spec-table th { background: var(--accent); color: #fff; padding: 14px 18px; text-align: left; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; }
+  .spec-table td { padding: 13px 18px; font-size: 14px; border-bottom: 1px solid var(--border); }
+  .spec-table tr:nth-child(odd) td { background: var(--card); }
+  .spec-table tr:nth-child(even) td { background: var(--surface); }
+  .spec-table td:first-child { color: var(--muted); font-weight: 600; width: 40%; }
+  .spec-table td:last-child { color: var(--text); }
+
+  /* INLINE IMAGE */
+  .inline-img { width: 100%; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); margin: 32px 0; }
+  .inline-img img { width: 100%; height: 320px; object-fit: cover; display: block; }
+  .inline-img figcaption { background: var(--card); padding: 12px 18px; font-size: 12px; color: var(--muted); }
+
+  /* HIGHLIGHT BOX */
+  .highlight {
+    background: linear-gradient(135deg, #1a1a2e, #16163a);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin: 32px 0;
+  }
+  .highlight-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); margin-bottom: 10px; }
+  .highlight p { color: #d0d0e8; margin: 0; font-size: 15px; }
+
+  /* TAG LIST */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 32px 0; }
+  .tag { background: var(--card); border: 1px solid var(--border); color: var(--muted); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px; }
+
+  /* FOOTER */
+  footer { background: var(--surface); border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; color: var(--muted); font-size: 13px; }
+  footer a { color: var(--accent2); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="http://126.dontkillmyapp.com/" class="nav-logo">AndroidHub</a>
+  <span class="nav-tag">July 2026</span>
+</nav>
+
+<div class="hero">
+  <div class="eyebrow"><span></span> Breaking Launch</div>
+  <h1>Samsung Galaxy Z Fold 8 – Everything We Know Before It Drops</h1>
+  <div class="meta">
+    <span>AndroidHub Staff</span>
+    <span class="meta-dot"></span>
+    <span>June 29, 2026</span>
+    <span class="meta-dot"></span>
+    <span>8 min read</span>
+    <span class="meta-dot"></span>
+    <span>Samsung · Foldables</span>
+  </div>
+  <div class="hero-img">
+    <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=900&auto=format&fit=crop" alt="Samsung Galaxy Z Fold 8 foldable phone">
+    <div class="hero-img-caption">Samsung's next foldable is shaping up to be their most refined yet — thinner, faster, smarter.</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <p>Every summer, Samsung drops a foldable that resets expectations. This July 2026 is no different. The Galaxy Z Fold 8 is coming, and the leaks, official teasers, and supply chain whispers paint a picture of Samsung's most polished book-style foldable yet. Whether you're a power user, a productivity obsessive, or just someone who has been waiting for the right time to go foldable — this is the guide you need before the launch event.</p>
+
+  <p>Samsung's Galaxy Unpacked event is expected in mid-to-late July, and the Z Fold 8 will headline alongside the Z Flip 8. Here's everything confirmed and credibly leaked so far, broken down into what actually matters for Android users.</p>
+
+  <h2>Why the Z Fold 8 Is a Big Deal This Year</h2>
+
+  <p>Foldables used to be a novelty. In 2026, they're a lifestyle choice — and Samsung is leaning into that hard. The Z Fold 8 isn't just an incremental update; it represents a fundamental rethinking of how Samsung balances thinness, durability, and software intelligence. The biggest changes are happening inside the hinge and on the inner display panel.</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">📐</div>
+      <div class="card-title">Ultra-Thin Design</div>
+      <div class="card-desc">Expected to be Samsung's thinnest Fold yet — under 10mm when unfolded, thanks to a new silicon-carbon battery cell.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🖥️</div>
+      <div class="card-title">Creaseless Inner Display</div>
+      <div class="card-desc">Samsung's new UTG (Ultra Thin Glass) generation dramatically reduces the visible crease that's defined Folds since Gen 1.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧠</div>
+      <div class="card-title">Snapdragon 8 Elite</div>
+      <div class="card-desc">The same chip powering the Galaxy S25 series — with 16GB RAM and up to 512GB storage expected at launch.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <div class="card-title">Galaxy AI 2.0</div>
+      <div class="card-desc">Samsung's next-gen AI layer, deeply integrated with One UI 8, brings smarter multitasking, note summaries, and live translation.</div>
+    </div>
+  </div>
+
+  <h2>Full Leaked Spec Sheet</h2>
+
+  <p>Based on credible leaks from well-known supply chain sources and regulatory filings, here's what the Galaxy Z Fold 8 is expected to ship with:</p>
+
+  <table class="spec-table">
+    <tr><th>Spec</th><th>Details</th></tr>
+    <tr><td>Inner Display</td><td>7.0" AMOLED, 120Hz LTPO, 2600 nits peak</td></tr>
+    <tr><td>Cover Display</td><td>4.0" AMOLED, 120Hz, full swipe keyboard</td></tr>
+    <tr><td>Processor</td><td>Snapdragon 8 Elite Gen 2 (4nm)</td></tr>
+    <tr><td>RAM / Storage</td><td>16GB RAM, 256GB / 512GB UFS 4.1</td></tr>
+    <tr><td>Main Camera</td><td>200MP OIS + 12MP Ultra-wide + 10x Periscope</td></tr>
+    <tr><td>Battery</td><td>5,000mAh silicon-carbon, 68W wired / 25W wireless</td></tr>
+    <tr><td>OS</td><td>Android 16 + One UI 8.0 at launch</td></tr>
+    <tr><td>Durability</td><td>IPX8 water resistance, Armor Aluminum frame</td></tr>
+    <tr><td>Hinge</td><td>Flex Hinge v4 — multi-stop angle locking</td></tr>
+    <tr><td>Expected Price</td><td>Starting ~$1,799 USD</td></tr>
+  </table>
+
+  <figure class="inline-img">
+    <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=900&auto=format&fit=crop" alt="Foldable smartphone display technology">
+    <figcaption>Next-gen UTG panels are expected to reduce inner display crease visibility by over 60% compared to the Z Fold 6.</figcaption>
+  </figure>
+
+  <h2>What's New With Background App Management on Z Fold 8</h2>
+
+  <p>Here's something most foldable reviews miss: how does the phone handle background apps across its two screens? The Z Fold 8 is expected to ship with significant improvements to how One UI 8 manages multitasking memory — a major pain point on Z Fold 6 where aggressive background app killing would interrupt work when switching between cover and inner display.</p>
+
+  <p>Samsung is working on what insiders call "Continuity Mode" — a feature where the app state is fully preserved and instantly resumed regardless of which screen you're using. This directly addresses one of the most common complaints from Z Fold users who rely on productivity apps like Notion, Gmail, or Slack across both displays.</p>
+
+  <div class="highlight">
+    <div class="highlight-label">💡 Optimization Tip</div>
+    <p>On current Z Fold devices, you can reduce app killing by going to Settings → Device Care → Battery → Background Usage Limits and removing productivity apps from the restricted list. This will carry over to the Z Fold 8 and is even more critical given its larger app surface area.</p>
+  </div>
+
+  <h2>Galaxy Z Fold 8 vs. Z Fold 6: Is It Worth Upgrading?</h2>
+
+  <p>If you're rocking the Z Fold 6, the question is whether the Z Fold 8 justifies the spend. The short answer: it depends on what bothers you most. If the crease annoys you daily — yes, upgrade. If you want thinner form factor for pockets — absolutely. If you're happy with your camera and performance — maybe skip and wait for the Z Fold 9.</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">✅</div>
+      <div class="card-title">Upgrade If...</div>
+      <div class="card-desc">You use the inner display for productivity daily, want the creaseless panel, or need the new 200MP camera system.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">⏳</div>
+      <div class="card-title">Wait If...</div>
+      <div class="card-desc">You bought the Z Fold 6 within the last 8 months. The generational leap is meaningful but not urgent for recent buyers.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🆕</div>
+      <div class="card-title">Buy If New...</div>
+      <div class="card-desc">First time going foldable? The Z Fold 8 is the most refined entry point Samsung has ever offered at this tier.</div>
+    </div>
+  </div>
+
+  <h2>Launch Date, Colors, and Where to Buy</h2>
+
+  <p>Samsung's Unpacked event is expected in the third week of July 2026, with pre-orders opening immediately after. The Z Fold 8 is expected to ship in Phantom Black, Icy Blue, and a new Sand Gold colorway exclusive to Samsung.com. Carrier availability will be global from day one.</p>
+
+  <p>Pre-ordering through Samsung directly typically gets you an enhanced trade-in value — usually $200–$400 more than carrier trade-in programs. If you plan to upgrade, pre-ordering is almost always the financially smarter play.</p>
+
+  <h2>Final Verdict Before Launch</h2>
+
+  <p>The Samsung Galaxy Z Fold 8 is shaping up to be the foldable that finally convinces fence-sitters. A creaseless display, thinner chassis, Snapdragon 8 Elite, and improved background app management make this the most complete Fold Samsung has ever shipped. Keep an eye on AndroidHub — we'll have hands-on impressions, optimization guides for One UI 8, and background app fix tutorials the moment the device goes live.</p>
+
+  <div class="tags">
+    <span class="tag">Samsung</span>
+    <span class="tag">Galaxy Z Fold 8</span>
+    <span class="tag">Foldable 2026</span>
+    <span class="tag">Android 16</span>
+    <span class="tag">One UI 8</span>
+    <span class="tag">Snapdragon 8 Elite</span>
+    <span class="tag">July Launch</span>
+  </div>
+
+</div>
+
+  <!-- RELATED ARTICLES -->
+  <div style="margin:56px 0 0;padding-top:40px;border-top:1px solid var(--border);">
+    <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;">More From AndroidHub</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
+      <a href="http://126.dontkillmyapp.com/" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;text-decoration:none;display:block;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">🏠 Home</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.4;">AndroidHub — Optimization Guides &amp; Rankings</div>
+      </a>
+      <a href="http://126.dontkillmyapp.com/samsung-galaxy-z-fold-8-launch-july-2026.html" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;text-decoration:none;display:block;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">📱 Samsung</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.4;">Galaxy Z Fold 8 Launch – Everything We Know</div>
+      </a>
+      <a href="http://126.dontkillmyapp.com/android-17-features-fix-notifications-background-apps.html" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;text-decoration:none;display:block;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">🤖 Android 17</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.4;">Android 17 Features That Fix Notifications &amp; Background Apps</div>
+      </a>
+      <a href="http://126.dontkillmyapp.com/android-fake-call-detection-app-permissions-2026.html" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;text-decoration:none;display:block;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">🔐 Security</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.4;">Android Fake Call Detection &amp; App Permissions</div>
+      </a>
+      <a href="http://126.dontkillmyapp.com/nothing-phone-4b-launch-background-apps-july-2026.html" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;text-decoration:none;display:block;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">⚡ Nothing</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.4;">Nothing Phone 4b – Background App Killing Test</div>
+      </a>
+      <a href="http://126.dontkillmyapp.com/googlebook-announced-android-app-optimization-2026.html" style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;text-decoration:none;display:block;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">💻 Google</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.4;">Googlebook – What It Means for Android Optimization</div>
+      </a>
+    </div>
+  </div>
+
+
+</div>
+
+<footer>
+  <p>© 2026 <a href="http://126.dontkillmyapp.com/">AndroidHub</a> — Device-specific Android optimization, guides &amp; rankings.</p>
+</footer>
+
+</body>
+</html>
